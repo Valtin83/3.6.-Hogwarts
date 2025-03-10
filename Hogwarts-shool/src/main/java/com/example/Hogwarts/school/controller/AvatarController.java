@@ -1,9 +1,13 @@
 package com.example.Hogwarts.school.controller;
 
 import com.example.Hogwarts.school.model.Avatar;
+import com.example.Hogwarts.school.repository.AvatarRepository;
 import com.example.Hogwarts.school.service.AvatarService;
 import com.example.Hogwarts.school.service.AvatarServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springdoc.core.converters.models.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,9 +26,11 @@ import java.nio.file.Path;
 public class AvatarController {
 
     private final AvatarService avatarService;
+    private final AvatarRepository avatarRepository;
 
-    public AvatarController(AvatarServiceImpl avatarServiceImpl) {
+    public AvatarController(AvatarServiceImpl avatarServiceImpl, AvatarRepository avatarRepository) {
         this.avatarService = avatarServiceImpl;
+        this.avatarRepository = avatarRepository;
     }
 
     @PostMapping(value = "/{id}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -61,6 +67,13 @@ public class AvatarController {
             response.setContentLength((int) avatar.getFileSize());
             is.transferTo(os);
         }
+    }
+
+    @GetMapping("/avatars")
+    public Page<Avatar> getAvatars(@RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "10") int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return avatarRepository.findAll(pageable);
     }
 
 }

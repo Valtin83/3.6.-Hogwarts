@@ -72,8 +72,7 @@ public class AvatarController {
     @GetMapping("/avatars")
     public Page<Avatar> getAvatars(@RequestParam(defaultValue = "0") int page,
                                    @RequestParam(defaultValue = "10") int size) {
-        PageRequest pageable = PageRequest.of(page, size);
-        return avatarRepository.findAll(pageable);
+        return avatarService.getAvatars(page, size);
     }
 
 }

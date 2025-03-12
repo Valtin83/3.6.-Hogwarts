@@ -1,13 +1,13 @@
-package com.example.Hogwarts.shool;
+package com.example.Hogwarts.school;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HogwartsShoolApplication {
+public class HogwartsSchoolApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HogwartsShoolApplication.class, args);
+		SpringApplication.run(HogwartsSchoolApplication.class, args);
 	}
 
 }

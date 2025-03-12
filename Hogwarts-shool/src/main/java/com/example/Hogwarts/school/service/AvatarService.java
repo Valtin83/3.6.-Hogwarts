@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.print.Pageable;
 import java.io.IOException;
 
 public interface AvatarService {
@@ -16,6 +15,5 @@ public interface AvatarService {
 
     Page<Avatar> getAvatars(PageRequest pageable);
 
-    Page<Avatar> getAvatars(Pageable pageable);
 }
 

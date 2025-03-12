@@ -70,9 +70,12 @@ public class AvatarController {
     }
 
     @GetMapping("/avatars")
-    public Page<Avatar> getAvatars(@RequestParam(defaultValue = "0") int page,
-                                   @RequestParam(defaultValue = "10") int size) {
-        return avatarService.getAvatars(page, size);
+    public ResponseEntity<Page<Avatar>> getAvatars(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        Page<Avatar> avatars = avatarService.getAvatars(pageable);
+        return ResponseEntity.ok(avatars);
     }
 
 }

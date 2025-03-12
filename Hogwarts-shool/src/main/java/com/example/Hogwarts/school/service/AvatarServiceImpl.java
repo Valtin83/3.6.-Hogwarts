@@ -8,7 +8,6 @@ import com.example.Hogwarts.school.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.print.Pageable;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -89,9 +89,8 @@ public class AvatarServiceImpl implements AvatarService {
     }
 
     @Override
-    public Page<Avatar> getAvatars(int page, int size) {
-        PageRequest pageable = PageRequest.of(page, size);
-        return avatarRepository.findAll(pageable);
+    public Page<Avatar> getAvatars(Pageable pageable) {
+        return avatarRepository.findAll((org.springframework.data.domain.Pageable) pageable);
     }
 
     public Student getStudent(Long studentId) {
